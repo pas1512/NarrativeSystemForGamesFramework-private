@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using ScriptsUtilities.Views.ItemViewContainer;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace MyFramework.InventorySystem.View
 {

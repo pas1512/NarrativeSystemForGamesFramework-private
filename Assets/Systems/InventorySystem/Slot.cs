@@ -1,5 +1,4 @@
-﻿using MyFramework.InventorySystem.Generic;
-using MyFramework.InventorySystem.Interfaces;
+﻿using MyFramework.InventorySystem.Interfaces;
 using ScriptsUtilities.Views.ItemsContainer;
 using System;
 

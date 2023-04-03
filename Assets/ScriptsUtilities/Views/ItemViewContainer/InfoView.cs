@@ -1,5 +1,5 @@
-using ScriptsUtilities.Views.ItemsContainer;
 using UnityEngine;
+using ScriptsUtilities.Views.ItemsContainer;
 
 namespace ScriptsUtilities.Views.ItemViewContainer
 {

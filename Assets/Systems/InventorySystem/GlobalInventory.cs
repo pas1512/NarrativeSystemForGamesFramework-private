@@ -1,6 +1,6 @@
-﻿using MyFramework.InventorySystem.Interfaces;
-using System;
+﻿using System;
 using UnityEngine;
+using MyFramework.InventorySystem.Interfaces;
 
 namespace MyFramework.InventorySystem
 {

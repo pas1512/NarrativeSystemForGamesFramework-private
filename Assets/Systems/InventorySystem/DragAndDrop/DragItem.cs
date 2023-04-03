@@ -1,6 +1,6 @@
-using MyFramework.InventorySystem.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
+using MyFramework.InventorySystem.Interfaces;
 
 namespace MyFramework.InventorySystem.DragEndDrop
 {

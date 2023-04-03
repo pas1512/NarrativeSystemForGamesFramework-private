@@ -1,6 +1,6 @@
-using ScriptsUtilities.Views.ItemViewContainer;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using ScriptsUtilities.Views.ItemViewContainer;
 
 namespace ScriptsUtilities.Views.ItemsContainer
 {
