@@ -6,7 +6,7 @@ using MyFramework.InventorySystem.View;
 
 namespace MyFramework.InventorySystem.DragEndDrop
 {
-    [RequireComponent(typeof(SlotView))]
+    [RequireComponent(typeof(SlotView), typeof(RectTransform))]
     public class ItemDragElement : DragedElement,
         IPointerEnterHandler, 
         IPointerExitHandler

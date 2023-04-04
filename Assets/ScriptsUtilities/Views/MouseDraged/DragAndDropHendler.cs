@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 namespace ScriptsUtilities.Views.MouseDraged
 {
@@ -35,8 +36,7 @@ namespace ScriptsUtilities.Views.MouseDraged
 
                 _transform = _dragedElement.GetControl();
                 _dragOffset = (Vector2)_transform.position - eventData.position;
-             
-                Vector2 size = _transform.sizeDelta * _transform.localScale * 0.5f;
+                Vector2 size = _transform.rect.size * _transform.localScale * 0.5f;
                 Vector2 upperClampedValues = Screen.safeArea.size - size;
                 Vector2 lowerClampedValues = size;
 

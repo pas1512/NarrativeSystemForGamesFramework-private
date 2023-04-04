@@ -28,6 +28,12 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
             Type baseType = (attribute as TypeDropdownAttribute).baseType;
             string[] options = GetPropertyTypes(baseType);
 
+            if(options.Length == 0)
+            {
+                EditorGUI.LabelField(position, "no childs of type");
+                return;
+            }
+
             if (property.GetValueType() == null)
             {
                 object newValues = propertyCache.fields.LoadFromCacheOrCreate(baseType);

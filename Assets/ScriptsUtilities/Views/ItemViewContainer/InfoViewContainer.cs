@@ -7,7 +7,8 @@ namespace ScriptsUtilities.Views.ItemsContainer
     public abstract class InfoViewContainer : MonoBehaviour
     {
         [SerializeField] private InfoView _template;
-        [SerializeField] private List<InfoView> _members;
+
+        private List<InfoView> _members;
 
         public void Init(IInfo[] elements)
         {
