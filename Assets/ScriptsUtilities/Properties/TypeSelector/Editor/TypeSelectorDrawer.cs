@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ScriptsUtilities.Properies.TypeSelector.Editor
 {
-    [CustomPropertyDrawer(typeof(TypeDropdownAttribute))]
+    [CustomPropertyDrawer(typeof(TypeSelectorAttribute))]
     public class TypeSelectorDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -25,7 +25,7 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
             //==================MainActions====================
             PropertyCache propertyCache = DrawerCache.Use(property, label);
 
-            Type baseType = (attribute as TypeDropdownAttribute).baseType;
+            Type baseType = (attribute as TypeSelectorAttribute).baseType;
             string[] options = GetPropertyTypes(baseType);
 
             if(options.Length == 0)
@@ -36,7 +36,8 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
 
             if (property.GetValueType() == null)
             {
-                object newValues = propertyCache.fields.LoadFromCacheOrCreate(baseType);
+                Type selectedType = Assembly.GetAssembly(fieldInfo.FieldType).GetType(options[0]);
+                object newValues = propertyCache.fields.LoadFromCacheOrCreate(selectedType);
                 property.SetValue(newValues);
             }
             else
@@ -47,8 +48,7 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
                 propertyCache.selectedTypeId = Array.IndexOf(options, propertyValue.GetType().Name);
             }
 
-            PropertyDrawUtility utility = propertyCache.utility;
-            utility.UpdatePosition(position);
+            PropertyDrawUtility utility = new PropertyDrawUtility(property, label, position);
 
             using (var check = new EditorGUI.ChangeCheckScope())
             {
@@ -79,7 +79,7 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             PropertyCache propertyCache = DrawerCache.Use(property, label);
-            PropertyDrawUtility utility = propertyCache.utility;
+            PropertyDrawUtility utility = new PropertyDrawUtility(property, label);
             return utility.selectorHeight + utility.valuesHeight;
         }
 

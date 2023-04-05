@@ -9,8 +9,6 @@ namespace MyFramework.InventorySystem.DragEndDrop
     {
         [SerializeField] private Image _view;
 
-        private GameObject _object;
-
         private RectTransform _transfrom;
         public RectTransform rectTransfrom => _transfrom;
 
@@ -20,10 +18,9 @@ namespace MyFramework.InventorySystem.DragEndDrop
         private bool _haveItem;
         public bool haveItem => _haveItem;
 
-        private void Awake()
+        private void OnEnable()
         {
             _transfrom = GetComponent<RectTransform>();
-            _object = gameObject;
         }
 
         public void Init(IItem itemView)
@@ -42,12 +39,12 @@ namespace MyFramework.InventorySystem.DragEndDrop
 
         public void On()
         {
-            _object.SetActive(true);
+            gameObject.SetActive(true);
         }
 
         public void Off()
         {
-            _object.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

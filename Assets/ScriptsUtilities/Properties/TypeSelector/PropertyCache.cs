@@ -9,15 +9,11 @@ namespace ScriptsUtilities.Properies.TypeSelector
         public Type selectedType { get; set; }
         public int selectedTypeId { get; set; }
 
-        private PropertyDrawUtility _utility;
-        public PropertyDrawUtility utility => _utility;
-
         private PropertyFieldsCache _fieldsCache;
         public PropertyFieldsCache fields => _fieldsCache;
 
-        public PropertyCache(SerializedProperty property, GUIContent label)
+        public PropertyCache()
         {
-            _utility = new PropertyDrawUtility(property, label);
             _fieldsCache = new PropertyFieldsCache();
         }
     }

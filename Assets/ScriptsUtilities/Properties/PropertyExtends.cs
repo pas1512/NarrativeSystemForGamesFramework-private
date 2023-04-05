@@ -7,7 +7,7 @@ namespace ScriptsUtilities.Properies
 {
     public static class PropertyExtends
     {
-        public static void SetValue (this SerializedProperty property, object value)
+        public static void SetValue(this SerializedProperty property, object value)
         {
             BindingFlags fieldsProperty = BindingFlags.NonPublic | BindingFlags.Instance;
 
@@ -57,6 +57,8 @@ namespace ScriptsUtilities.Properies
 
         public static Type GetValueType(this SerializedProperty property)
         {
+            //цяю проблему можна виправити якщо перестворювати propertyCache що разу у OnGUI
+            //так як property що разу дізпозиця
             string name = property.type;
             name = name.Replace("managedReference<", "").Replace(">", "");
             return Type.GetType(name);

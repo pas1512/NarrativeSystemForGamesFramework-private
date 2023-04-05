@@ -4,24 +4,30 @@ using ScriptsUtilities.Views.ItemViewContainer;
 
 namespace ScriptsUtilities.Views.ItemsContainer
 {
-    public abstract class InfoViewContainer : MonoBehaviour
+    public abstract class InfoViewContainer<T, I> : MonoBehaviour where T : InfoView where I : IInfo
     {
-        [SerializeField] private InfoView _template;
+        [SerializeField] private T _template;
 
-        private List<InfoView> _members;
+        private List<T> _members;
 
-        public void Init(IInfo[] elements)
+        protected virtual void InitInfoElement(T element, I info)
+        {
+            element.ObserTo(info);
+            element.gameObject.SetActive(true);
+            _members.Add(element);
+        }
+
+        public void Init(I[] elements)
         {
             if(_members == null)
-                _members = new List<InfoView>();
+                _members = new List<T>();
 
             ClearMembers();
 
             foreach(var element in elements)
             {
-                InfoView infoView = Instantiate(_template, transform);
-                infoView.ObserTo(element);
-                _members.Add(infoView);
+                T infoView = Instantiate(_template, transform);
+                InitInfoElement(infoView, element);
             }
         }
 

@@ -19,7 +19,7 @@ namespace ScriptsUtilities.Properies.TypeSelector
             
             if(notLoaded)
             {
-                cachedData = new PropertyCache(property, label);
+                cachedData = new PropertyCache();
                 _cache.Add(propertyPath, cachedData);
             }
 

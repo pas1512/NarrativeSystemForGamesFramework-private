@@ -20,12 +20,21 @@ namespace MyFramework.InventorySystem.View
         {
             _slot = slot;
             _owner = inventory;
-            ObserTo(slot);
         }
 
         public bool IsEmpty()
         { 
             return _slot == null || _slot.Empty;
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
         }
 
         protected sealed override void UpdateInfo()

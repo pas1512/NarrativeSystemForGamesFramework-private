@@ -514,10 +514,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909a0f4ad6b776d49a43b1f1c09ee408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items: []
+  _items:
+  - rid: 7785144987351777281
+  - rid: 7785144987351777288
+  - rid: 7785144987351777291
+  - rid: 7785144987351777292
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7785144987351777281
+      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
+      data:
+        _type: {fileID: 11400000, guid: d3ef0bf81bce79245bc0de01752cdd29, type: 2}
+        _number: 45
+    - rid: 7785144987351777288
+      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
+      data:
+        _type: {fileID: 0}
+        _number: 0
+    - rid: 7785144987351777291
+      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
+      data:
+        _type: {fileID: 11400000, guid: b8956e0732ec9654494adec68a3167ca, type: 2}
+        _number: 38
+    - rid: 7785144987351777292
+      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
+      data:
+        _type: {fileID: 0}
+        _number: 0
+--- !u!114 &1583475412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 839584162638487847, guid: 135024ea07fee2f4fbf1f00842dbe46d, type: 3}
+  m_PrefabInstance: {fileID: 406739674570838943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc816e482776af4eb2298a14481e191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &406739674570838943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -525,6 +560,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 826021019}
     m_Modifications:
+    - target: {fileID: 906689203185594834, guid: 135024ea07fee2f4fbf1f00842dbe46d, type: 3}
+      propertyPath: _dragElement
+      value: 
+      objectReference: {fileID: 1583475412}
     - target: {fileID: 1768384310416799193, guid: 135024ea07fee2f4fbf1f00842dbe46d, type: 3}
       propertyPath: m_Size
       value: 1

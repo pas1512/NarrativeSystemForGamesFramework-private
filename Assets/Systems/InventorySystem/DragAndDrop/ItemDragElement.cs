@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using ScriptsUtilities.Views.MouseDraged;
-using MyFramework.InventorySystem.Interfaces;
 using MyFramework.InventorySystem.View;
+using MyFramework.InventorySystem.Interfaces;
 
 namespace MyFramework.InventorySystem.DragEndDrop
 {
@@ -84,15 +84,12 @@ namespace MyFramework.InventorySystem.DragEndDrop
 
                 if (rest != null)
                     rest = _slotView.Slot.Enforce(rest);
-                else return;
 
                 if (rest != null)
                     rest = _slotView.owner.TryAdd(rest);
-                else return;
 
                 if (rest != null)
                     GlobalInventory.AddItems(_slotView.owner.transform, new IItem[] { _dragElement.dragedItem });
-                else return;
             }
 
             _dragElement.Realise();

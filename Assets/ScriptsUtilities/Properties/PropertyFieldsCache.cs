@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace ScriptsUtilities.Properies
@@ -15,6 +16,9 @@ namespace ScriptsUtilities.Properies
 
         public object LoadFromCacheOrCreate(Type type)
         {
+            if(type.IsAbstract) 
+                return null;
+
             object createdObject = Activator.CreateInstance(type);
 
             if (_cechedFiealds == null)

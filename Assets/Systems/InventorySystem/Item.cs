@@ -1,6 +1,7 @@
-﻿using MyFramework.InventorySystem.Interfaces;
-using System;
+﻿using System;
 using UnityEngine;
+using MyFramework.InventorySystem.Types;
+using MyFramework.InventorySystem.Interfaces;
 
 namespace MyFramework.InventorySystem
 {
@@ -14,6 +15,16 @@ namespace MyFramework.InventorySystem
         public virtual int Number => 1;
         public virtual Sprite StateImage => Type.Image;
         public virtual Sprite DragImage => Type.Image;
+
+        public Item() 
+        {
+            _type = null;
+        }
+
+        public Item(ItemType itemType)
+        {
+            _type = itemType;
+        }
 
         public abstract object Clone();
         public abstract float Quality();

@@ -1,14 +1,21 @@
-﻿using MyFramework.InventorySystem.Interfaces;
+﻿using System;
 using ScriptsUtilities.Views.ItemsContainer;
-using System;
+using MyFramework.InventorySystem.Interfaces;
+using MyFramework.InventorySystem.Types;
+using System.Diagnostics;
+using ScriptsUtilities.Properies.TypeSelector;
+using UnityEngine;
 
 namespace MyFramework.InventorySystem
 {
+    [Serializable]
     public class Slot : IInfo
     {
         public event Action OnChanged;
 
+        [TypeSelector(typeof(Item)), SerializeField, SerializeReference]
         private IItem _item;
+
         public IItem Item 
         {
             get => _item;
@@ -20,7 +27,8 @@ namespace MyFramework.InventorySystem
 
         public Slot(IItem item = null)
         {
-            _item = item;
+            if(item.Type != null)
+                _item = item;
         }
 
         public virtual bool TryPut(IItem item)

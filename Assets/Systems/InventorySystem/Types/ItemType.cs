@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MyFramework.InventorySystem
+namespace MyFramework.InventorySystem.Types
 {
     public class ItemType : ScriptableObject
     {

@@ -32,8 +32,10 @@ namespace ScriptsUtilities.Properies.TypeSelector
             _label = label;
         }
 
-        public void UpdatePosition(Rect position)
+        public PropertyDrawUtility(SerializedProperty property, GUIContent label, Rect position)
         {
+            _property = property;
+            _label = label;
             _position = position;
         }
 
