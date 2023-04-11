@@ -36,9 +36,8 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
 
             if (property.GetValueType() == null)
             {
-                Type selectedType = Assembly.GetAssembly(fieldInfo.FieldType).GetType(options[0]);
-                object newValues = propertyCache.fields.LoadFromCacheOrCreate(selectedType);
-                property.SetValue(newValues);
+                propertyCache.selectedType = null;
+                propertyCache.selectedTypeId = 0;
             }
             else
             {
@@ -53,6 +52,7 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
             using (var check = new EditorGUI.ChangeCheckScope())
             {
                 int selectedTypeId = propertyCache.selectedTypeId;
+               
                 DrawTypeSelectorGUI(utility, options, selectedTypeId, out selectedTypeId);
 
                 if (check.changed)
@@ -69,7 +69,6 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
             //=================================================
 
 
-
             //===========EndPropertyAndReturnIndent============
             EditorGUI.indentLevel = indent;
             EditorGUI.EndProperty();
@@ -78,7 +77,6 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            PropertyCache propertyCache = DrawerCache.Use(property, label);
             PropertyDrawUtility utility = new PropertyDrawUtility(property, label);
             return utility.selectorHeight + utility.valuesHeight;
         }
@@ -100,7 +98,7 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
                                 type == propertyType)
                                 select type.FullName;
 
-            return selectedTypes.ToArray();
+            return selectedTypes.Prepend("None").ToArray();
         }
     }
 }

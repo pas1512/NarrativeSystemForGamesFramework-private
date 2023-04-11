@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
+using UnityEditorInternal;
 
 namespace ScriptsUtilities.Properies
 {
@@ -15,7 +17,7 @@ namespace ScriptsUtilities.Properies
 
         public object LoadFromCacheOrCreate(Type type)
         {
-            if(type.IsAbstract) 
+            if (type == null || type.IsAbstract)
                 return null;
 
             object createdObject = Activator.CreateInstance(type);

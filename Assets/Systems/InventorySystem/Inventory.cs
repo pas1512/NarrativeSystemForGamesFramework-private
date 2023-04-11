@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using MyFramework.InventorySystem.Interfaces;
+﻿using MyFramework.InventorySystem.Interfaces;
 using ScriptsUtilities.Views.ItemsContainer;
 
 namespace MyFramework.InventorySystem
@@ -8,6 +7,14 @@ namespace MyFramework.InventorySystem
     {
         public int SlotsNumber => info == null ? 0 : info.Length;
         public Slot GetSlot(int id) => info[id];
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+
+            foreach (var slot in info)
+                slot.OnValidate();
+        }
 
         public IItem TryAdd(IItem item)
         {

@@ -3,6 +3,7 @@ using ScriptsUtilities.Views.ItemsContainer;
 using MyFramework.InventorySystem.Interfaces;
 using ScriptsUtilities.Properies.TypeSelector;
 using UnityEngine;
+using ScriptsUtilities;
 
 namespace MyFramework.InventorySystem
 {
@@ -13,6 +14,7 @@ namespace MyFramework.InventorySystem
 
         [TypeSelector(typeof(Item)), SerializeField, SerializeReference]
         private IItem _item;
+        private ValueMemorizer<int> _itemCache; 
 
         public IItem Item 
         {
@@ -103,6 +105,24 @@ namespace MyFramework.InventorySystem
             else if (TryReplace(item, out rest)) { }
 
             return rest;
+        }
+    
+        public virtual void OnValidate()
+        {
+            if (_item == null)
+                return;
+
+            if (_item.Type == null)
+            {
+                _item = null;
+                return;
+            }
+
+            if (_itemCache == null)
+                _itemCache = new ValueMemorizer<int>(int.MinValue);
+
+            if(_itemCache.Changed(_item.GetHashCode()))
+                OnChanged?.Invoke();
         }
     }
 }
