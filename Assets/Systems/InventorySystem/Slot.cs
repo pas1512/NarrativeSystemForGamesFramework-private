@@ -1,8 +1,6 @@
 ﻿using System;
 using ScriptsUtilities.Views.ItemsContainer;
 using MyFramework.InventorySystem.Interfaces;
-using MyFramework.InventorySystem.Types;
-using System.Diagnostics;
 using ScriptsUtilities.Properies.TypeSelector;
 using UnityEngine;
 

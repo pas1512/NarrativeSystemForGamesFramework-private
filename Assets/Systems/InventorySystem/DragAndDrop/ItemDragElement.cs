@@ -41,23 +41,28 @@ namespace MyFramework.InventorySystem.DragEndDrop
                 return false;
 
             IItem takedResult = null;
+            bool taked = false;
 
             switch (button)
             {
                 case PointerEventData.InputButton.Left:
-                    _slotView.Slot.TryTakeAll(out takedResult);
+                    taked = _slotView.Slot.TryTakeAll(out takedResult);
                     break;
                 case PointerEventData.InputButton.Right:
-                    _slotView.Slot.TryTakePart(out takedResult);
+                    taked = _slotView.Slot.TryTakePart(out takedResult);
                     break;
                 case PointerEventData.InputButton.Middle:
                 default:
                     return false;
             }
 
-            _dragElement.Init(takedResult);
-            _dragElement.On();
-            return true;
+            if(taked)
+            {
+                _dragElement.Init(takedResult);
+                _dragElement.On();
+            }
+
+            return taked;
         }
 
         public override RectTransform GetControl()

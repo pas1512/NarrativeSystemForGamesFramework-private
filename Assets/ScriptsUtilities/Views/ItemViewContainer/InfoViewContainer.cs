@@ -4,34 +4,69 @@ using ScriptsUtilities.Views.ItemViewContainer;
 
 namespace ScriptsUtilities.Views.ItemsContainer
 {
-    public abstract class InfoViewContainer<T, I> : MonoBehaviour where T : InfoView where I : IInfo
+    [RequireComponent(typeof(RectTransform))]
+    public abstract class InfoViewContainer<ContainerType, InfoViewType, InfoType> : MonoBehaviour 
+        where InfoViewType : InfoView 
+        where InfoType : IInfo
+        where ContainerType : InfoContainer<InfoType>
     {
-        [SerializeField] private T _template;
+        [SerializeField] private InfoViewType _template;
+        [SerializeField] private RectTransform _containerElement;
 
-        private List<T> _members;
+        [SerializeField] private ContainerType _container;
+        protected ContainerType container => _container;
 
-        protected virtual void InitInfoElement(T element, I info)
+        private List<InfoViewType> _members;
+
+        protected virtual void Start()
+        {
+            _members = new List<InfoViewType>();
+
+            foreach (var element in _container.info)
+            {
+                InfoViewType infoView = Instantiate(_template, _containerElement);
+                InitInfoElement(infoView, element);
+            }
+        }
+
+        protected virtual void OnValidate()
+        {
+            if (_containerElement == null)
+                _containerElement = (RectTransform)transform;
+        }
+
+        protected virtual void OnEnable()
+        {
+            _container.OnInfoChanged += RenewMembers;
+        }
+
+        protected virtual void OnDisable()
+        {
+            _container.OnInfoChanged -= RenewMembers;
+        }
+
+        protected virtual void InitInfoElement(InfoViewType element, InfoType info)
         {
             element.ObserTo(info);
             element.gameObject.SetActive(true);
             _members.Add(element);
         }
 
-        public void Init(I[] elements)
+        private void RenewMembers()
         {
-            if(_members == null)
-                _members = new List<T>();
+            if (_members == null)
+                _members = new List<InfoViewType>();
 
             ClearMembers();
 
-            foreach(var element in elements)
+            foreach (var element in _container.info)
             {
-                T infoView = Instantiate(_template, transform);
+                InfoViewType infoView = Instantiate(_template, transform);
                 InitInfoElement(infoView, element);
             }
         }
 
-        public void ClearMembers()
+        private void ClearMembers()
         {
             if (_members != null && _members.Count > 0)
             {

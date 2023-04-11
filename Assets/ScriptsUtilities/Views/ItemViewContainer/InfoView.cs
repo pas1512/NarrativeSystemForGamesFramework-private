@@ -3,6 +3,7 @@ using ScriptsUtilities.Views.ItemsContainer;
 
 namespace ScriptsUtilities.Views.ItemViewContainer
 {
+    [RequireComponent(typeof(RectTransform))]
     public abstract class InfoView : MonoBehaviour
     {
         private IInfo _observable;

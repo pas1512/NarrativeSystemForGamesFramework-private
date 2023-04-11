@@ -400,8 +400,9 @@ GameObject:
   - component: {fileID: 2872554699072966797}
   - component: {fileID: 2872554699072966796}
   - component: {fileID: 2872554699072966793}
+  - component: {fileID: 807290991239251273}
   m_Layer: 5
-  m_Name: Inventar
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -481,6 +482,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473db76cb6c3cc04d9897dc8f012d600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &807290991239251273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872554699072966794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5991f4d02bf2474cb94bd0bf4886b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _template: {fileID: 4793920189850382903}
+  _containerElement: {fileID: 3813677865428307383}
+  _container: {fileID: 0}
 --- !u!1 &5835063876768693952
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +508,6 @@ GameObject:
   - component: {fileID: 3813677865428307383}
   - component: {fileID: 8739642100229931098}
   - component: {fileID: 8739642100229931097}
-  - component: {fileID: 4437793509389553116}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -533,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 4
+    m_Left: 0
     m_Right: 0
     m_Top: 4
     m_Bottom: 0
@@ -558,20 +573,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &4437793509389553116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5835063876768693952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5991f4d02bf2474cb94bd0bf4886b03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _template: {fileID: 4793920189850382903}
-  _inventory: {fileID: 0}
 --- !u!1 &6221620866187409102
 GameObject:
   m_ObjectHideFlags: 0

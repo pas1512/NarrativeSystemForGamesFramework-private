@@ -1,6 +1,6 @@
 using MyFramework.InventorySystem.Interfaces;
 
-namespace MyFramework.InventorySystem.Generic
+namespace MyFramework.InventorySystem.Slots
 {
     public class Slot<T>: Slot where T : IItem
     {
