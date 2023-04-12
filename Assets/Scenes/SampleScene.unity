@@ -516,17 +516,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info:
   - _item:
-      rid: -2
+      rid: 7785145144745918626
   - _item:
-      rid: 7785145122862399836
-  - _item:
-      rid: 7785145122862399810
-  - _item:
-      rid: 7785145122862399521
+      rid: 7785145144745918635
   - _item:
       rid: -2
   - _item:
-      rid: 7785145122862399523
+      rid: -2
+  - _item:
+      rid: -2
+  - _item:
+      rid: 7785145144745918733
   - _item:
       rid: -2
   - _item:
@@ -536,26 +536,21 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 7785145122862399521
-      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
+    - rid: 7785145144745918626
+      type: {class: StackableItem, ns: MyFramework.InventorySystem.Items, asm: Assembly-CSharp}
       data:
         _type: {fileID: 11400000, guid: b8956e0732ec9654494adec68a3167ca, type: 2}
-        _number: 15
-    - rid: 7785145122862399523
-      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
+        _number: 60
+    - rid: 7785145144745918635
+      type: {class: StackableItem, ns: MyFramework.InventorySystem.Items, asm: Assembly-CSharp}
       data:
         _type: {fileID: 11400000, guid: d3ef0bf81bce79245bc0de01752cdd29, type: 2}
-        _number: 55
-    - rid: 7785145122862399810
-      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
+        _number: 35
+    - rid: 7785145144745918733
+      type: {class: StackableItem, ns: MyFramework.InventorySystem.Items, asm: Assembly-CSharp}
       data:
-        _type: {fileID: 11400000, guid: d3ef0bf81bce79245bc0de01752cdd29, type: 2}
-        _number: 19
-    - rid: 7785145122862399836
-      type: {class: StackableItem, ns: , asm: Assembly-CSharp}
-      data:
-        _type: {fileID: 11400000, guid: d3ef0bf81bce79245bc0de01752cdd29, type: 2}
-        _number: 36
+        _type: {fileID: 11400000, guid: b8956e0732ec9654494adec68a3167ca, type: 2}
+        _number: 28
 --- !u!114 &1583475412 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 839584162638487847, guid: 135024ea07fee2f4fbf1f00842dbe46d, type: 3}
@@ -697,6 +692,10 @@ PrefabInstance:
     - target: {fileID: 2872554699072966794, guid: 135024ea07fee2f4fbf1f00842dbe46d, type: 3}
       propertyPath: m_Name
       value: Inventar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2872554699072966794, guid: 135024ea07fee2f4fbf1f00842dbe46d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2872554699072966795, guid: 135024ea07fee2f4fbf1f00842dbe46d, type: 3}
       propertyPath: m_Pivot.x

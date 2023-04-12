@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ScriptsUtilities.Properies.TypeSelector
 {
+#if UNITY_EDITOR
     public class PropertyDrawUtility
     {
         private Rect _position;
@@ -74,4 +75,5 @@ namespace ScriptsUtilities.Properies.TypeSelector
             return new GUIContent(property.GetValueType().Name);
         }
     }
+#endif
 }

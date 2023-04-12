@@ -1,57 +1,128 @@
+﻿using System;
+using ScriptsUtilities.Views.ItemsContainer;
 using MyFramework.InventorySystem.Interfaces;
+using ScriptsUtilities.Properies.TypeSelector;
+using UnityEngine;
+using ScriptsUtilities;
 
-namespace MyFramework.InventorySystem.Slots
+namespace MyFramework.InventorySystem
 {
-    public class Slot<T>: Slot where T : IItem
+    [Serializable]
+    public class Slot : IInfo
     {
-        public bool Admits(IItem item) => item is T;
-        public bool NotAdmits(IItem item) => !(item is T);
+        public event Action OnChanged;
 
-        public Slot() { }
+        [TypeSelector(typeof(Item)), SerializeField, SerializeReference]
+        private IItem _item;
+        private ValueMemorizer<int> _itemCache; 
 
-        public Slot(T item)
+        public IItem Item 
         {
-            Item = item;
+            get => _item;
+            protected set => _item = value;
         }
 
-        public sealed override bool TryPut(IItem item)
-        {
-            if (NotAdmits(item))
-                return false;
+        public bool Empty => _item == null;
+        public IItemView View => _item;
 
-            return base.TryPut(item);
+        public Slot(IItem item = null)
+        {
+            if(item.Type != null)
+                _item = item;
         }
 
-        public sealed override bool TryApply(IItem item, out IItem rest)
+        public virtual bool TryPut(IItem item)
         {
-            if (NotAdmits(item))
+            if (Empty)
             {
-                rest = item;
-                return false;
+                Item = item;
+                OnChanged?.Invoke();
+                return true;
             }
 
-            return base.TryApply(item, out rest);
+            return false;
         }
 
-        public sealed override bool TryReplace(IItem item, out IItem rest)
+        public virtual bool TryApply(IItem item, out IItem rest)
         {
-            if (NotAdmits(item))
+            if (_item.TryApply(item, out rest))
             {
-                rest = item;
-                return false;
+                OnChanged?.Invoke();
+                return true;
             }
 
-            return base.TryReplace(item, out rest);
+            return false;
         }
 
-        public sealed override bool TryTakeAll(out IItem taked)
+        public virtual bool TryReplace(IItem item, out IItem rest)
         {
-            return base.TryTakeAll(out taked);
+            rest = _item;
+
+            if (Empty)
+                return false;
+
+            _item = item; 
+            OnChanged?.Invoke();
+
+            return true;
         }
 
-        public sealed override bool TryTakePart(out IItem taked)
+        public virtual bool TryTakePart(out IItem taked)
         {
-            return base.TryTakePart(out taked);
+            taked = _item;
+
+            if (Empty)
+                return false;
+
+            if (_item.TryAlternativeAction(out taked))
+            {
+                OnChanged?.Invoke();
+                return true;
+            }
+
+            return false;
+        }
+
+        public virtual bool TryTakeAll(out IItem taked)
+        {
+            taked = _item;
+
+            if (Empty)
+                return false;
+
+            _item = null;
+            OnChanged?.Invoke();
+            return true;
+        }
+
+        public IItem Enforce(IItem item)
+        {
+            IItem rest = item;
+
+            if (TryPut(item))
+                rest = null;
+            else if (TryApply(item, out rest)) { }
+            else if (TryReplace(item, out rest)) { }
+
+            return rest;
+        }
+    
+        public virtual void OnValidate()
+        {
+            if (_item == null)
+                return;
+
+            if (_item.Type == null || _item.Number <= 0)
+            {
+                _item = null;
+                return;
+            }
+
+            if (_itemCache == null)
+                _itemCache = new ValueMemorizer<int>(int.MinValue);
+
+            if(_itemCache.Changed(_item.GetHashCode()))
+                OnChanged?.Invoke();
         }
     }
 }

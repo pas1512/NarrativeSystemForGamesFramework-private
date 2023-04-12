@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace ScriptsUtilities.Properies
 {
+#if UNITY_EDITOR
     public static class PropertyExtends
     {
         public static void SetValue(this SerializedProperty prop, object value)
@@ -96,8 +97,6 @@ namespace ScriptsUtilities.Properies
 
         public static Type GetValueType(this SerializedProperty property)
         {
-            //цяю проблему можна виправити якщо перестворювати propertyCache що разу у OnGUI
-            //так як property що разу дізпозиця
             string name = property.type;
             name = name.Replace("managedReference<", "").Replace(">", "");
             return Type.GetType(name);
@@ -153,4 +152,5 @@ namespace ScriptsUtilities.Properies
             return enm.Current;
         }
     }
+#endif
 }

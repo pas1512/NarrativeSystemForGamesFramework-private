@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ScriptsUtilities.Properies.TypeSelector
 {
+#if UNITY_EDITOR
     public static class DrawerCache
     {
         private static Dictionary<string, PropertyCache> _cache;
@@ -31,4 +32,5 @@ namespace ScriptsUtilities.Properies.TypeSelector
             Debug.Log(string.Join(", ", _cache.Keys));
         }
     }
+#endif
 }
