@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using ScriptsUtilities.Views.MouseDraged;
 using MyFramework.InventorySystem.View;
 using MyFramework.InventorySystem.Interfaces;
+using System.Linq;
 
 namespace MyFramework.InventorySystem.DragEndDrop
 {
@@ -34,6 +35,17 @@ namespace MyFramework.InventorySystem.DragEndDrop
                 _selected = null;
         }
 
+        public virtual bool AllowedExchange()
+        {
+            if (_selected == null)
+                return false;
+
+            Inventory originInventory = _slotView.owner;
+            Inventory targetInventory = _selected._slotView.owner;
+
+            return targetInventory.ExchangeAllowed(originInventory);
+        }
+
         public override bool Init(PointerEventData.InputButton button)
         {
             if (_slotView.notInitialized &&
@@ -42,14 +54,17 @@ namespace MyFramework.InventorySystem.DragEndDrop
 
             IItem takedResult = null;
             bool taked = false;
+            TakedType type = TakedType.None;
 
             switch (button)
             {
                 case PointerEventData.InputButton.Left:
                     taked = _slotView.Slot.TryTakeAll(out takedResult);
+                    type = TakedType.Main;
                     break;
                 case PointerEventData.InputButton.Right:
                     taked = _slotView.Slot.TryTakePart(out takedResult);
+                    type = TakedType.Alternative;
                     break;
                 case PointerEventData.InputButton.Middle:
                 default:
@@ -58,7 +73,7 @@ namespace MyFramework.InventorySystem.DragEndDrop
 
             if(taked)
             {
-                _dragElement.Init(takedResult);
+                _dragElement.Init(takedResult, type);
                 _dragElement.On();
             }
 
@@ -72,7 +87,7 @@ namespace MyFramework.InventorySystem.DragEndDrop
 
         public override void Complete()
         {
-            if(_selected == null)
+            if(AllowedExchange() && _selected == null)
             {
                 GlobalInventory.AddItems(_slotView.owner.transform, new IItem[] { _dragElement.dragedItem });
                 _dragElement.Realise();
@@ -85,20 +100,27 @@ namespace MyFramework.InventorySystem.DragEndDrop
             if (_dragElement.haveItem)
             {
                 rest = _dragElement.dragedItem;
-                rest = _selected._slotView.Slot.Enforce(rest);
+
+                if(AllowedExchange())
+                {
+                    if (_dragElement.takedType == TakedType.Main)
+                        rest = _selected._slotView.Slot.EnforceHard(rest);
+                    else
+                        rest = _selected._slotView.Slot.EnforceSoft(rest);
+                }
 
                 if (rest != null)
-                    rest = _slotView.Slot.Enforce(rest);
+                    rest = _slotView.Slot.EnforceHard(rest);
 
                 if (rest != null)
                     rest = _slotView.owner.TryAdd(rest);
 
                 if (rest != null)
                     GlobalInventory.AddItems(_slotView.owner.transform, new IItem[] { _dragElement.dragedItem });
-            }
 
-            _dragElement.Realise();
-            _dragElement.Off();
+                _dragElement.Realise();
+                _dragElement.Off();
+            }
         }
     }
 }

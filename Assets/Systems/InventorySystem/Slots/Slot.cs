@@ -95,18 +95,29 @@ namespace MyFramework.InventorySystem
             return true;
         }
 
-        public IItem Enforce(IItem item)
+        public IItem EnforceHard(IItem item)
         {
             IItem rest = item;
 
             if (TryPut(item))
                 rest = null;
-            else if (TryApply(item, out rest)) { }
-            else if (TryReplace(item, out rest)) { }
+
+            else if (!TryApply(item, out rest))
+                TryReplace(item, out rest);
 
             return rest;
         }
-    
+
+        public IItem EnforceSoft(IItem item)
+        {
+            if (TryPut(item))
+                return null;
+
+            TryApply(item, out IItem rest);
+
+            return rest;
+        }
+
         public virtual void OnValidate()
         {
             if (_item == null)

@@ -4,6 +4,13 @@ using MyFramework.InventorySystem.Interfaces;
 
 namespace MyFramework.InventorySystem.DragEndDrop
 {
+    public enum TakedType
+    {
+        None,
+        Main,
+        Alternative
+    }
+
     [RequireComponent(typeof(RectTransform))]
     public class DragItem : MonoBehaviour
     {
@@ -18,16 +25,20 @@ namespace MyFramework.InventorySystem.DragEndDrop
         private bool _haveItem;
         public bool haveItem => _haveItem;
 
+        private TakedType _takedType;
+        public TakedType takedType => _takedType;
+
         private void OnEnable()
         {
             _transfrom = GetComponent<RectTransform>();
         }
 
-        public void Init(IItem itemView)
+        public void Init(IItem itemView, TakedType type)
         {
             _dragetItem = itemView;
             _haveItem = true;
             _view.sprite = itemView.DragImage;
+            _takedType = type;
         }
 
         public void Realise()
@@ -35,6 +46,7 @@ namespace MyFramework.InventorySystem.DragEndDrop
             _haveItem = false;
             _dragetItem = null;
             _view.sprite = null;
+            _takedType = TakedType.None;
         }
 
         public void On()

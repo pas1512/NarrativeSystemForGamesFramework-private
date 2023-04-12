@@ -29,11 +29,15 @@ namespace ScriptsUtilities.Views.ItemsContainer
             }
         }
 
+#if UNITY_EDITOR
+
         protected virtual void OnValidate()
         {
             if (_containerElement == null)
                 _containerElement = (RectTransform)transform;
         }
+
+#endif
 
         protected virtual void OnEnable()
         {
