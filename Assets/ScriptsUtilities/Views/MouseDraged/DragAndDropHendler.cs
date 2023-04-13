@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace ScriptsUtilities.Views.MouseDraged
 {
+    [RequireComponent(typeof(RectTransform))]
     public class DragAndDropHendler : MonoBehaviour,
         IBeginDragHandler,
         IDragHandler,

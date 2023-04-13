@@ -4,7 +4,7 @@ using ScriptsUtilities.Views.MouseDraged;
 using MyFramework.InventorySystem.View;
 using MyFramework.InventorySystem.Interfaces;
 
-namespace MyFramework.InventorySystem.DragEndDrop
+namespace MyFramework.InventorySystem.Actions
 {
     [RequireComponent(typeof(SlotView), typeof(RectTransform))]
     public class ItemDragElement : DragedElement,
@@ -73,7 +73,7 @@ namespace MyFramework.InventorySystem.DragEndDrop
             if(taked)
             {
                 if (_slotView.owner.duplicateDrag)
-                    _slotView.Slot.EnforceSoft(takedResult);
+                    _slotView.Slot.EnforceSoft((IItem)takedResult.Clone());
 
                 _dragElement.Init(takedResult, type);
                 _dragElement.On();

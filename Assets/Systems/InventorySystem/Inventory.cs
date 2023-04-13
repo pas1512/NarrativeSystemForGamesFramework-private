@@ -61,9 +61,13 @@ namespace MyFramework.InventorySystem
         [SerializeField] private ExchangeOptions[] _options;
 
         public int SlotsNumber => info == null ? 0 : info.Length;
+        public int EmptySlotsNumber => info == null ? 0 : info.Count(o => o.Empty);
+        public int NoEmptySlotsNumber => info == null ? 0 : info.Count(o => !o.Empty);
         public float FullPrice => info == null ? 0 : info.Sum(o => o.FullPrice);
-        public Slot GetSlot(int id) => info[id];
 
+        public IItem[] GetItems() => info.Where(o => !o.Empty).Select(o => o.Item).ToArray();
+
+        public Slot GetSlot(int id) => info[id];
 
         public bool ExchangeAllowed(Inventory other)
         {
@@ -93,7 +97,6 @@ namespace MyFramework.InventorySystem
                 return haveInOptions ^ (typeValue == 2);
         }
 
-
 #if UNITY_EDITOR
 
         protected override void OnValidate()
@@ -117,6 +120,9 @@ namespace MyFramework.InventorySystem
 
         public IItem TryAdd(IItem item)
         {
+            if (_duplicateDrag)
+                return null;
+
             if (item.Type == null)
                 return null;
 
@@ -130,6 +136,38 @@ namespace MyFramework.InventorySystem
             }
 
             return item;
+        }
+
+        public IItem TryAdd(IItem[] items)
+        {
+            if(_duplicateDrag)
+                return null;
+
+            IItem rest = null;
+
+            foreach (var item in items)
+            {
+                rest = item;
+
+                do
+                {
+                    if (EmptySlotsNumber == 0)
+                        return rest;
+
+                    rest = TryAdd(rest);
+                } while (rest != null);
+            }
+
+            return rest;
+        }
+
+        public void Clear()
+        {
+            if (info != null)
+            {
+                foreach (var slot in info)
+                    slot.TryTakeAll(out var temp);
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MyFramework.InventorySystem.Interfaces;
 
-namespace MyFramework.InventorySystem.DragEndDrop
+namespace MyFramework.InventorySystem.Actions
 {
     public enum TakedType
     {

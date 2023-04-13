@@ -6,6 +6,9 @@ namespace MyFramework.InventorySystem.View
     public class ShopSectionView : InventoryView
     {
         [SerializeField] private Text _number;
+        [Range(0.1f, 2f), SerializeField] private float _coficient;
+
+        public float fullPrice => container.FullPrice * _coficient;
 
         protected override void OnEnable()
         {
@@ -27,7 +30,7 @@ namespace MyFramework.InventorySystem.View
 
         private void RenewPrice()
         {
-            _number.text = container.FullPrice.ToString();
+            _number.text = fullPrice.ToString();
         }
     }
 }
