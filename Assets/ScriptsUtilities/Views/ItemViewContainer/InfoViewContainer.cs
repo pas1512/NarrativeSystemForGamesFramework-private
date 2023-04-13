@@ -56,7 +56,7 @@ namespace ScriptsUtilities.Views.ItemsContainer
             _members.Add(element);
         }
 
-        private void RenewMembers()
+        protected virtual void RenewMembers()
         {
             if (_members == null)
                 _members = new List<InfoViewType>();

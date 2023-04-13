@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 namespace ScriptsUtilities.Views.MouseDraged
 {
@@ -27,12 +26,9 @@ namespace ScriptsUtilities.Views.MouseDraged
 
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
-            if(_isInited)
+            if(_isInited && !_dragStarted)
             {
                 _dragStarted = _dragedElement.Init(eventData.button);
-
-                if (!_dragStarted)
-                    return;
 
                 _transform = _dragedElement.GetControl();
                 _dragOffset = (Vector2)_transform.position - eventData.position;

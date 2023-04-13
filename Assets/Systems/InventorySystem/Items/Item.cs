@@ -13,6 +13,7 @@ namespace MyFramework.InventorySystem
 
         public virtual string Name => Type.Name;
         public virtual int Number => 1;
+        public virtual float Price => Type.Price;
         public virtual Sprite StateImage => Type.Image;
         public virtual Sprite DragImage => Type.Image;
 

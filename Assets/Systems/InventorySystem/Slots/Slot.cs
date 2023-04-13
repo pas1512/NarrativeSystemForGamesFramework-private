@@ -24,6 +24,7 @@ namespace MyFramework.InventorySystem
 
         public bool Empty => _item == null;
         public IItemView View => _item;
+        public float FullPrice => _item == null ? 0 : _item.Price;
 
         public Slot(IItem item = null)
         {

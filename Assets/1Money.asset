@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 21300000, guid: ffa41859da1880844aafef5f18b39201, type: 3}
   _name: "1 \u043A\u0430\u0440\u0431\u043E\u0432\u0430\u043D\u0435\u0446\u044C"
+  _price: 1
+  _preciousness: 1
   _maxNumber: 100

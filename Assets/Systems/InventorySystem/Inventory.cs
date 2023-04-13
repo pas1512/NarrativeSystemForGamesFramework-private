@@ -10,10 +10,10 @@ namespace MyFramework.InventorySystem
     {
         private enum ExchangeType
         {
-            Free,
             ReadOnly,
-            AllowByOptions,
-            ForbidByOptions
+            Free,
+            ForbidByOptions,
+            AllowByOptions
         }
 
         [Serializable]
@@ -48,65 +48,51 @@ namespace MyFramework.InventorySystem
             }
         }
 
-        [SerializeField] private bool _slotEditingAllowed = true;
+        [SerializeField] private bool _inspectorEditingAllowed = true;
 
         [SerializeField] private string _id = "none";
         public string id => _id;
 
+        [SerializeField] private bool _duplicateDrag = false;
+        public bool duplicateDrag => _duplicateDrag;
+
+        [SerializeField] private bool _selfExchangeAllowed = true;
         [SerializeField] private ExchangeType _exchangeOptions;
         [SerializeField] private ExchangeOptions[] _options;
 
         public int SlotsNumber => info == null ? 0 : info.Length;
+        public float FullPrice => info == null ? 0 : info.Sum(o => o.FullPrice);
         public Slot GetSlot(int id) => info[id];
+
 
         public bool ExchangeAllowed(Inventory other)
         {
-            if (_id == other._id)
+            if (_selfExchangeAllowed && _id == other._id)
                 return true;
 
-            bool otherReturnAllowed = false;
             bool otherSetedReturns = other._options.Any(o => o.SetedReturn(id));
-
-            switch (other._exchangeOptions)
-            {
-                case ExchangeType.Free:
-                    otherReturnAllowed = true;
-                    break;
-                case ExchangeType.ReadOnly:
-                    otherReturnAllowed = false;
-                    break;
-                case ExchangeType.AllowByOptions:
-                    otherReturnAllowed = otherSetedReturns;
-                    break;
-                case ExchangeType.ForbidByOptions:
-                    otherReturnAllowed = !otherSetedReturns;
-                    break;
-            }
+            bool otherReturnAllowed = ActionAllowed(other._exchangeOptions,
+                otherSetedReturns);
 
             if (!otherReturnAllowed)
                 return false;
 
-            bool takingAllowed = false;
             bool setedTaking = _options.Any(o => o.SetedTaking(other.id));
-
-            switch (_exchangeOptions)
-            {
-                case ExchangeType.Free:
-                    takingAllowed = true;
-                    break;
-                case ExchangeType.ReadOnly:
-                    takingAllowed = false;
-                    break;
-                case ExchangeType.AllowByOptions:
-                    takingAllowed = setedTaking;
-                    break;
-                case ExchangeType.ForbidByOptions:
-                    takingAllowed = !setedTaking;
-                    break;
-            }
+            bool takingAllowed = ActionAllowed(_exchangeOptions, setedTaking);
 
             return takingAllowed;
         }
+
+        private bool ActionAllowed(ExchangeType type, bool haveInOptions)
+        {
+            int typeValue = (int)type;
+
+            if (typeValue < 2)
+                return typeValue == 1;
+            else
+                return haveInOptions ^ (typeValue == 2);
+        }
+
 
 #if UNITY_EDITOR
 
@@ -116,7 +102,7 @@ namespace MyFramework.InventorySystem
 
             foreach (var slot in info)
             {
-                if (!_slotEditingAllowed)
+                if (!_inspectorEditingAllowed)
                 {
                     slot.TryTakeAll(out var removed);
                     continue;

@@ -11,6 +11,8 @@ namespace MyFramework.InventorySystem.Items
         [SerializeField] private int _number;
         public override int Number => _number;
 
+        public override float Price => Type.Price * _number;
+
         private StackableType _itemType => (StackableType)Type;
 
         public StackableItem() : base() 
@@ -29,6 +31,12 @@ namespace MyFramework.InventorySystem.Items
 
         public override bool TryApply(IItem other, out IItem rest)
         {
+            if (other == null)
+            {
+                rest = null;
+                return false;
+            }
+
             if (_itemType == other.Type && _number < _itemType.MaxNumber)
             {
                 StackableItem stackableItem = (StackableItem)other;

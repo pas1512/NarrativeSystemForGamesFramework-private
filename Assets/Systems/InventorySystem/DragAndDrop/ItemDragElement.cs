@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 using ScriptsUtilities.Views.MouseDraged;
 using MyFramework.InventorySystem.View;
 using MyFramework.InventorySystem.Interfaces;
-using System.Linq;
 
 namespace MyFramework.InventorySystem.DragEndDrop
 {
@@ -73,6 +72,9 @@ namespace MyFramework.InventorySystem.DragEndDrop
 
             if(taked)
             {
+                if (_slotView.owner.duplicateDrag)
+                    _slotView.Slot.EnforceSoft(takedResult);
+
                 _dragElement.Init(takedResult, type);
                 _dragElement.On();
             }
@@ -87,7 +89,9 @@ namespace MyFramework.InventorySystem.DragEndDrop
 
         public override void Complete()
         {
-            if(AllowedExchange() && _selected == null)
+            bool exchangeAllowed = AllowedExchange();
+
+            if (exchangeAllowed && _selected == null)
             {
                 GlobalInventory.AddItems(_slotView.owner.transform, new IItem[] { _dragElement.dragedItem });
                 _dragElement.Realise();
@@ -101,13 +105,18 @@ namespace MyFramework.InventorySystem.DragEndDrop
             {
                 rest = _dragElement.dragedItem;
 
-                if(AllowedExchange())
+                if(exchangeAllowed)
                 {
-                    if (_dragElement.takedType == TakedType.Main)
+                    if (_selected._slotView.owner.duplicateDrag)
+                        rest = null;
+                    else if(_dragElement.takedType == TakedType.Main)
                         rest = _selected._slotView.Slot.EnforceHard(rest);
                     else
                         rest = _selected._slotView.Slot.EnforceSoft(rest);
                 }
+
+                if (_slotView.owner.duplicateDrag)
+                    rest = null;
 
                 if (rest != null)
                     rest = _slotView.Slot.EnforceHard(rest);
