@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace ScriptsUtilities.Properies.TypeSelector.Editor
 {
-    [CustomPropertyDrawer(typeof(TypeDropdownAttribute))]
+#if UNITY_EDITOR
+    [CustomPropertyDrawer(typeof(TypeSelectorAttribute))]
     public class TypeSelectorDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -25,43 +26,47 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
             //==================MainActions====================
             PropertyCache propertyCache = DrawerCache.Use(property, label);
 
-            Type baseType = (attribute as TypeDropdownAttribute).baseType;
-            string[] options = GetPropertyTypes(baseType);
+            Type baseType = (attribute as TypeSelectorAttribute).baseType;
 
-            if (property.GetValueType() == null)
+            string[] shortNames;
+            string[] options = GetPropertyTypes(baseType, out shortNames);
+
+            if(options.Length == 0)
             {
-                object newValues = propertyCache.fields.LoadFromCacheOrCreate(baseType);
-                property.SetValue(newValues);
+                EditorGUI.LabelField(position, "no childs of type");
+                return;
+            }
+
+            object propertyValue = property.GetValue();
+
+            if (propertyValue == null)
+            {
+                propertyCache.selectedTypeId = 0;
+                propertyCache.selectedType = null;
             }
             else
             {
-                object propertyValue = property.GetValue();
                 propertyCache.fields.SaveInCache(propertyValue);
                 propertyCache.selectedType = propertyValue.GetType();
-                propertyCache.selectedTypeId = Array.IndexOf(options, propertyValue.GetType().Name);
+                propertyCache.selectedTypeId = Array.IndexOf(options, propertyValue.GetType().FullName);
             }
 
-            PropertyDrawUtility utility = propertyCache.utility;
-            utility.UpdatePosition(position);
+            PropertyDrawUtility utility = new PropertyDrawUtility(property, label, position);
 
             using (var check = new EditorGUI.ChangeCheckScope())
             {
                 int selectedTypeId = propertyCache.selectedTypeId;
-                DrawTypeSelectorGUI(utility, options, selectedTypeId, out selectedTypeId);
+               
+                DrawTypeSelectorGUI(utility, shortNames, selectedTypeId, out selectedTypeId);
 
                 if (check.changed)
                 {
-                    propertyCache.selectedTypeId = selectedTypeId;
-
                     Type selectedType = Assembly.GetAssembly(fieldInfo.FieldType).GetType(options[selectedTypeId]);
-                    propertyCache.selectedType = selectedType;
-
                     object newValues = propertyCache.fields.LoadFromCacheOrCreate(selectedType);
                     property.SetValue(newValues);
                 }
             }
             //=================================================
-
 
 
             //===========EndPropertyAndReturnIndent============
@@ -72,8 +77,7 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            PropertyCache propertyCache = DrawerCache.Use(property, label);
-            PropertyDrawUtility utility = propertyCache.utility;
+            PropertyDrawUtility utility = new PropertyDrawUtility(property, label);
             return utility.selectorHeight + utility.valuesHeight;
         }
 
@@ -83,7 +87,7 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
             EditorGUI.PropertyField(utility.valuesRect, utility.property, utility.valuesLabel, true);
         }
 
-        private string[] GetPropertyTypes(Type propertyType)
+        private string[] GetPropertyTypes(Type propertyType, out string[] shortNames)
         {
             IEnumerable<Type> allTypes = Assembly.GetAssembly(propertyType).GetTypes();
             
@@ -92,9 +96,12 @@ namespace ScriptsUtilities.Properies.TypeSelector.Editor
                                 !type.IsInterface &&
                                 (type.IsSubclassOf(propertyType) ||
                                 type == propertyType)
-                                select type.FullName;
+                                select type;
 
-            return selectedTypes.ToArray();
+            shortNames = selectedTypes.Select(o=>o.Name).Prepend("None").ToArray();
+
+            return selectedTypes.Select(o => o.FullName).Prepend("").ToArray();
         }
     }
+#endif
 }

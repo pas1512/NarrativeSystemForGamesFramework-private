@@ -15,6 +15,9 @@ namespace ScriptsUtilities.Properies
 
         public object LoadFromCacheOrCreate(Type type)
         {
+            if (type == null || type.IsAbstract)
+                return null;
+
             object createdObject = Activator.CreateInstance(type);
 
             if (_cechedFiealds == null)

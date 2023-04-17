@@ -1,4 +1,5 @@
 ﻿using System;
+using MyFramework.InventorySystem.Types;
 
 namespace MyFramework.InventorySystem.Interfaces
 {
