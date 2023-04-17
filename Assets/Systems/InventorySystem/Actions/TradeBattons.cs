@@ -25,10 +25,45 @@ namespace MyFramework.InventorySystem.Actions
 
         public void EndTradeProcess()
         {
+            bool constrainedSize = !_customer.inventory.duplicateDrag;
+            int availableSlotsNumber = _customer.inventory.EmptySlotsNumber;
+            int requiredSlotsNumber = _baySection.inventory.NonEmptySlotsNumber;
+            
+            if (constrainedSize &&
+                availableSlotsNumber < requiredSlotsNumber)
+            {
+                string messageString = "Ви не можете здійснити данний обмін через" +
+                    " недостатнью кількість вільних місць у вашому інвентарі";
+                Debug.Log(messageString);
+                _message.Show(messageString);
+                return;
+            }
+
+            constrainedSize = !_seller.inventory.duplicateDrag;
+            availableSlotsNumber = _seller.inventory.EmptySlotsNumber;
+            requiredSlotsNumber = _sellSection.inventory.NonEmptySlotsNumber;
+
+            if (constrainedSize &&
+                availableSlotsNumber < requiredSlotsNumber)
+            {
+                string messageString = "Ви не можете здійснити данний обмін через" +
+                    " недостатнью кількість вільних місць у інвентарі продавця";
+                Debug.Log(messageString);
+                _message.Show(messageString);
+                return;
+            }
+
             if (_sellSection.fullPrice < _baySection.fullPrice)
             {
-                Debug.Log("Нерівноцінний обмін. Дайте більше");
-                _message.Show("Нерівноцінний обмін. Дайте більше");
+                Debug.Log("Ви не можете здійснити данний обмін через нерівноцінність");
+                _message.Show("Ви не можете здійснити данний обмін через нерівноцінність");
+                return;
+            }
+            else if(_sellSection.fullPrice > _baySection.fullPrice)
+            {
+                string quetionString = "Ви даєте більше. Ви впевнені що хочете здійснити обмін?";
+                Debug.Log(quetionString);
+                _quetion.Show(quetionString, QuestionAnswerHendler);
                 return;
             }
             else ApplyDeal();
@@ -66,6 +101,12 @@ namespace MyFramework.InventorySystem.Actions
 
             if (rest != null)
                 GlobalInventory.AddItems(_customer.inventory.transform, new IItem[] { rest });
+        }
+
+        private void QuestionAnswerHendler(int i)
+        {
+            if (i == 1)
+                ApplyDeal();
         }
     }
 }

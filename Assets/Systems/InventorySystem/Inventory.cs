@@ -62,7 +62,7 @@ namespace MyFramework.InventorySystem
 
         public int SlotsNumber => info == null ? 0 : info.Length;
         public int EmptySlotsNumber => info == null ? 0 : info.Count(o => o.Empty);
-        public int NoEmptySlotsNumber => info == null ? 0 : info.Count(o => !o.Empty);
+        public int NonEmptySlotsNumber => info == null ? 0 : info.Count(o => !o.Empty);
         public float FullPrice => info == null ? 0 : info.Sum(o => o.FullPrice);
 
         public IItem[] GetItems() => info.Where(o => !o.Empty).Select(o => o.Item).ToArray();
