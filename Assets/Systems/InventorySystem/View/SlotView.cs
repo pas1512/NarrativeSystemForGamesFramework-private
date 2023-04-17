@@ -4,7 +4,7 @@ using ScriptsUtilities.Views.ItemViewContainer;
 
 namespace MyFramework.InventorySystem.View
 {
-    public class SlotView : InfoView
+    public class SlotView : InfoView<Slot>
     {
         [SerializeField] private Text _name;
         [SerializeField] private Image _image;

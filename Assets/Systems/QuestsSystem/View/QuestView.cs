@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace QuestsSystem.View
 {
-    public class QuestView : InfoView
+    public class QuestView : InfoView<QuestInfo>
     {
         [SerializeField] private Text _name;
         [SerializeField] private Text _head;
