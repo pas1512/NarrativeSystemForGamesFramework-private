@@ -3,7 +3,7 @@ using static UnityEngine.EventSystems.PointerEventData;
 
 namespace ScriptsUtilities.Views.MouseDraged
 {
-    public class SimpleDragElement : DragedElement
+    public class SimpleDragedElement : DragedElement
     {
         public override RectTransform GetControl() => (RectTransform)transform;
 

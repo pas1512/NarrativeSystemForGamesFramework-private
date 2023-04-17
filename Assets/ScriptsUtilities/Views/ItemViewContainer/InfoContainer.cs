@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace ScriptsUtilities.Views.ItemsContainer
 {
-    public abstract class InfoContainer<I> : MonoBehaviour where I : IInfo
+    public abstract class InfoContainer<InfoType> : MonoBehaviour where InfoType : class, IInfo
     {
         public event Action OnInfoChanged;
 
-        [SerializeField] private I[] _info;
-        public I[] info => _info;
+        [SerializeField] private InfoType[] _info;
+        public InfoType[] info => _info;
 
         ValueMemorizer<int> _infoSize;
 

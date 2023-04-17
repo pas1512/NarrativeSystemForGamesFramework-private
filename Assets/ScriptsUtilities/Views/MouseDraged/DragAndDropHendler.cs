@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 namespace ScriptsUtilities.Views.MouseDraged
 {
+    /// <summary>
+    /// цей компонент робить об'єкт оборбщиком драгендроп системи
+    /// </summary>
     [RequireComponent(typeof(RectTransform))]
     public class DragAndDropHendler : MonoBehaviour,
         IBeginDragHandler,

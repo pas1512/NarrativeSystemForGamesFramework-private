@@ -4,9 +4,9 @@ using ScriptsUtilities.Views.ItemsContainer;
 namespace ScriptsUtilities.Views.ItemViewContainer
 {
     [RequireComponent(typeof(RectTransform))]
-    public abstract class InfoView : MonoBehaviour
+    public abstract class InfoView<InfoType> : MonoBehaviour where InfoType: class, IInfo
     {
-        private IInfo _observable;
+        private InfoType _observable;
         private bool _observing;
 
         public bool observing => _observing;
@@ -18,12 +18,12 @@ namespace ScriptsUtilities.Views.ItemViewContainer
         protected virtual void OnDisable() => UnsetObserve();
         protected virtual void OnDestroy() => UnsetObserve();
 
-        public virtual bool IsObserved(IInfo itemInfo)
+        public virtual bool IsObserved(InfoType itemInfo)
         {
             return _observing && _observable == itemInfo;
         }
 
-        public virtual void ObserTo(IInfo itemInfo)
+        public virtual void ObserTo(InfoType itemInfo)
         {
             if (IsObserved(itemInfo))
                 return;

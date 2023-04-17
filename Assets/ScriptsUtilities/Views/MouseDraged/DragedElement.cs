@@ -3,6 +3,9 @@ using static UnityEngine.EventSystems.PointerEventData;
 
 namespace ScriptsUtilities.Views.MouseDraged
 {
+    /// <summary>
+    /// цей компонент робить об'єкт рухаючимся під час драгендроп
+    /// </summary>
     [RequireComponent(typeof(RectTransform))]
     public abstract class DragedElement : MonoBehaviour
     {

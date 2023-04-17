@@ -6,8 +6,8 @@ namespace ScriptsUtilities.Views.ItemsContainer
 {
     [RequireComponent(typeof(RectTransform))]
     public abstract class InfoViewContainer<ContainerType, InfoViewType, InfoType> : MonoBehaviour 
-        where InfoViewType : InfoView 
-        where InfoType : IInfo
+        where InfoType : class, IInfo
+        where InfoViewType : InfoView <InfoType>
         where ContainerType : InfoContainer<InfoType>
     {
         [SerializeField] private InfoViewType _template;

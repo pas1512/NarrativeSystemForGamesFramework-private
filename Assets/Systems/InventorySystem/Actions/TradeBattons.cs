@@ -20,8 +20,16 @@ namespace MyFramework.InventorySystem.Actions
         [SerializeField] private InventoryView _seller;
         [SerializeField] private ShopSectionView _sellSection;
         [SerializeField] private ShopSectionView _baySection;
+
+        [Header("QuetionViewSection")]
         [SerializeField] private MessageView _quetion;
+        [TextArea, SerializeField] private string _nonequalExchangeQuestions;
+
+        [Header("MessageViewSection")]
         [SerializeField] private MessageView _message;
+        [TextArea, SerializeField] private string _nonequalExchangeMessage;
+        [TextArea, SerializeField] private string _customerNotEnoughSpace;
+        [TextArea, SerializeField] private string _sellerNotEnoughSpace;
 
         public void EndTradeProcess()
         {
