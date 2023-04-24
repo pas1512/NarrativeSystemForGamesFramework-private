@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using MyFramework.InventorySystem.Types;
-using MyFramework.InventorySystem.Interfaces;
+using MyFramework.InventorySystem.Items;
 
 namespace MyFramework.InventorySystem
 {

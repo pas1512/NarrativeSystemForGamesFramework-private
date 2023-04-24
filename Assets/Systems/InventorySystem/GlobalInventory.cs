@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using MyFramework.InventorySystem.Interfaces;
+using MyFramework.InventorySystem.Items;
 
 namespace MyFramework.InventorySystem
 {
@@ -8,7 +8,7 @@ namespace MyFramework.InventorySystem
     {
         public static event Action<Transform, IItem[]> OnItemAdded;
 
-        public static void AddItems(Transform origin, IItem[] items)
+        public static void AddItems(Transform origin, params IItem[] items)
         {
             OnItemAdded?.Invoke(origin, items);
         }

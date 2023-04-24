@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8030834787570535742}
-  - component: {fileID: 750966169263658788}
+  - component: {fileID: 1372695968849897519}
   m_Layer: 5
   m_Name: DragItem
   m_TagString: Untagged
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: 37.5, y: -37.5}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &750966169263658788
+--- !u!114 &1372695968849897519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8030834787570535743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc816e482776af4eb2298a14481e191, type: 3}
+  m_Script: {fileID: 11500000, guid: fc345a7dec949d14a9ffb6af47d92bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 8030834788296081774}

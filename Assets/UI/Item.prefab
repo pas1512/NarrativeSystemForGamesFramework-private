@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1817902451336939027}
   - component: {fileID: 6728411664292221688}
   - component: {fileID: 1924036312313246453}
-  - component: {fileID: 3696575795771948463}
-  - component: {fileID: 9033860334835662410}
+  - component: {fileID: 4210775528058468344}
+  - component: {fileID: 8093450500822270370}
   - component: {fileID: 6765937662982642832}
   m_Layer: 5
   m_Name: Item
@@ -123,7 +123,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3696575795771948463
+--- !u!114 &4210775528058468344
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,13 +132,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268063217546501324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c085d58a077a84ab6e8e889731d467, type: 3}
+  m_Script: {fileID: 11500000, guid: 87d6a16ced6205f42aa8ef0c964bc695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _name: {fileID: 3184970285350987428}
   _image: {fileID: 5565289276688661791}
   _number: {fileID: 8493878204672806648}
---- !u!114 &9033860334835662410
+--- !u!114 &8093450500822270370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268063217546501324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ed45f66c214e144db5299bc3f1c0816, type: 3}
+  m_Script: {fileID: 11500000, guid: 48baeb4d068b9c644929023fa8341409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _dragElement: {fileID: 0}
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef486f79295e0d149a3ee4bc09525c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragedElement: {fileID: 9033860334835662410}
+  _dragedElement: {fileID: 8093450500822270370}
   _saveOffset: 0
   _clapedByScreen: 1
 --- !u!1 &1878447203259951630

@@ -49,6 +49,12 @@ namespace ScriptsUtilities.Views.ItemsContainer
             _container.OnInfoChanged -= RenewMembers;
         }
 
+        public void ResetContainer(ContainerType container)
+        {
+            _container = container;
+            Start();
+        }
+
         protected virtual void InitInfoElement(InfoViewType element, InfoType info)
         {
             element.ObserTo(info);

@@ -7,9 +7,10 @@ namespace ScriptsUtilities.Views.ItemViewContainer
     public abstract class InfoView<InfoType> : MonoBehaviour where InfoType: class, IInfo
     {
         private InfoType _observable;
-        private bool _observing;
 
+        private bool _observing;
         public bool observing => _observing;
+
         public bool notObserving => !_observing;
         public bool initialized => _observable != null;
         public bool notInitialized => _observable == null;
